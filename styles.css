@@ -62,3 +62,29 @@ th {
     border-radius: 5px;
     margin-top: 20px;
 }
+
+/* Custom button styling for "2024 Customer Spend" */
+.pushable {
+    background: #fd7e14;
+    border: none;
+    border-radius: 12px;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+    text-decoration: none; /* Make it look like a button, not a link */
+    display: inline-block; /* Ensure it's inline for layout */
+}
+.front {
+    display: block;
+    padding: 12px 42px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    background: #fd7e14;
+    color: white;
+    transform: translateY(-6px);
+    transition: transform 0.2s; /* Smooth transition */
+}
+
+.pushable:active .front {
+    transform: translateY(-2px);
+}

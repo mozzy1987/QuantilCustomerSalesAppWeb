@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "firebase": "^10.14.1"
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "firebase": "^10.14.1",
+    "sqlite3": "^5.1.7"
   }
 }

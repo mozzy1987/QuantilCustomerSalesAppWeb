@@ -11,11 +11,14 @@
     <div>
         <img width="500px" src="Logo.svg" alt="Logo" id="logo">
     </div>
+    
     <input type="text" id="customerSearch" placeholder="Search for a customer..." oninput="filterCustomers()">
     <select id="customerSelect" onchange="selectCustomer()">
         <option value="">Select a customer</option>
     </select>  
-    <button onclick="searchCustomer()">Search</button>
+    <select id="locationSelect" onchange="selectLocation()">
+        <option value="">Select a location</option>
+    </select>
     <button onclick="clearSearch()">Clear</button>
 
     <div id="accountInfo"></div>

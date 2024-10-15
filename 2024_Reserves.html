@@ -3,15 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2024 Spend</title>
+    <title>2024 Reserves</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="papaparse.min.js"></script>
+    <script src="papaparse.min.js"></script> <!-- Ensure this file is in your project -->
+    <style>
+        .reserve-info {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .reserve-info p {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
     <div>
         <img width="500px" src="Logo.svg" alt="Logo" id="logo">
     </div>
+
+    <input type="text" id="centreSearch" placeholder="Search for a Centre..." oninput="filterCentres()">
+    <select id="centreSelect" onchange="selectCentre()">
+        <option value="">Select a Centre</option>
+    </select>
+    <button onclick="clearSearch()">Clear</button>
+
+    <div id="reservesData"></div>
+
     <button onclick="window.location.href='home.html'">Back</button>
-    <script src="script.js"></script>
+
+    <script src="reserves_script.js"></script> <!-- This is where the logic will go -->
 </body>
 </html>

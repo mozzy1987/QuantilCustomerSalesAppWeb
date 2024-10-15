@@ -12,13 +12,22 @@
         <img width="500px" src="Logo.svg" alt="Logo" id="logo">
     </div>
     
-    <input type="text" id="customerSearch" placeholder="Search for a customer..." oninput="filterCustomers()">
-    <select id="customerSelect" onchange="selectCustomer()">
-        <option value="">Select a customer</option>
-    </select>  
-    <select id="locationSelect" onchange="selectLocation()">
-        <option value="">Select a location</option>
-    </select>
+    <div>
+        <input type="text" id="customerSearch" placeholder="Search for a customer..." oninput="filterCustomers()">
+    </div>
+    <div>
+        <select id="customerSelect" onchange="selectCustomer()">
+            <option value="">Select a customer</option>
+        </select>  
+    </div>
+    <div>
+            <br>
+    </div>
+    <div>
+        <select id="locationSelect" onchange="selectLocation()">
+            <option value="">Select a location</option>
+        </select>
+    </div>
     <button onclick="clearSearch()">Clear</button>
 
     <div id="accountInfo"></div>

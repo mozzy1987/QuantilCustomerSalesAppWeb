@@ -11,22 +11,25 @@
     <div>
         <img width="500px" src="Logo.svg" alt="Logo" id="logo">
     </div>
-        <input type="text" id="customerSearch" placeholder="Search for a customer...">
-        <button onclick="searchCustomer()">Search</button>
-        <button onclick="clearSearch()">Clear</button>
-        <table>
-            <thead>
-                <tr>
-                    <th>Account Number</th>
-                    <th>Customer Name</th>
-                    <th>Invoice Group</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody id="customerTableBody"></tbody>
-        </table>
-        <button onclick="window.location.href='home.html'">Back</button>
-    </div>
+    <input type="text" id="customerSearch" placeholder="Search for a customer..." oninput="filterCustomers()">
+    <select id="customerSelect" onchange="selectCustomer()">
+        <option value="">Select a customer</option>
+    </select>  
+    <button onclick="searchCustomer()">Search</button>
+    <button onclick="clearSearch()">Clear</button>
+
+    <div id="accountInfo"></div>
+    <table>
+        <thead>
+            <tr>
+                <th>Invoice Group</th>
+                <th>Total</th>
+                <th>Volume</th>
+            </tr>
+        </thead>
+        <tbody id="customerTableBody"></tbody>
+    </table>
+    <button onclick="window.location.href='home.html'">Back</button>
     <script src="script.js"></script>
 </body>
 </html>

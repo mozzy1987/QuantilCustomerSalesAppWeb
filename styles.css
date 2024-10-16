@@ -91,55 +91,58 @@ th {
 
 /* Add some color coding */
 .product-group1 {
-    background-color: #f2f2f2; /* Light gray */
+    background-color: #f2f2f2; 
 }
 
 .product-group2 {
-    background-color: #e6ffe6; /* Light green */
+    background-color: #eb9c99bd; 
 }
 
 .product-group3 {
-    background-color: #ffcccc; /* Light red */
+    background-color: #ffcccc; 
 }
 .product-group4 {
-    background-color: #f2f2f2; /* Light gray */
+    background-color: #dcfff2; 
 }
 
 .product-group5 {
-    background-color: #e6ffe6; /* Light green */
+    background-color: #e6ffe6; 
 }
 
 .product-group6 {
-    background-color: #ffcccc; /* Light red */
+    background-color: #cce2ff; 
 }
 .product-group7 {
-    background-color: #f2f2f2; /* Light gray */
+    background-color: #fd4e4ea8;
+    color: white; 
 }
 
 .product-group8 {
-    background-color: #e6ffe6; /* Light green */
+    background-color: #ff0000a8;
+    color: white;  
 }
 
 .product-group9 {
-    background-color: #ffcccc; /* Light red */
+    background-color: #ffdb658f; 
 }
 .product-group10 {
-    background-color: #f2f2f2; /* Light gray */
+    background-color: #ffab4c; 
 }
 
 .product-group11 {
-    background-color: #e6ffe6; /* Light green */
+    background-color: #ff0000a8;
+    color: white; 
 }
 
 .product-group12 {
-    background-color: #ffcccc; 
+    background-color: #ffdb658f; 
 }
 .product-group13 {
     background-color: #f2f2f2; 
 }
 
 .product-group14 {
-    background-color: #fd7e14; 
+    background-color: #afb5ff; 
 }
 
 

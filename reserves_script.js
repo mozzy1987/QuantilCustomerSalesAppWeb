@@ -57,16 +57,18 @@ const productGroupMap = {
     "Grafted Chilli 14": 7,
     "Grafted Chilli 16": 7,
     "Grafted Chilli 18": 7,
-    "P/Bean 15": 8,
-    "P/Bean 17": 8,
-    "P/Bean 19": 8,
-    "Sweet Potato 17": 9,
-    "Heritage Tom 18": 10,
-    "Heritage Tom 20": 10,
-    "1L Veg 20": 11,
-    "1L Veg 22": 11,
-    "Autumn Strip": 12,
-    "Wildflower Week 12": 13,
+    "Dyna Chilli 15": 8,
+    "Dyna Chilli 17": 8,
+    "P/Bean 15": 9,
+    "P/Bean 17": 9,
+    "P/Bean 19": 9,
+    "Sweet Potato 17": 10,
+    "Heritage Tom 18": 11,
+    "Heritage Tom 20": 11,
+    "1L Veg 20": 12,
+    "1L Veg 22": 12,
+    "Autumn Strip": 13,
+    "Wildflower Week 12": 14,
 };
 
 // Load CSV file and parse data
@@ -126,6 +128,36 @@ const filterCentre = () => {
                 case 3:
                     rowClass = 'product-group3';
                     break;
+                case 4:
+                    rowClass = 'product-group4';
+                    break;
+                case 5:
+                    rowClass = 'product-group5';
+                    break;
+                case 6:
+                    rowClass = 'product-group6';
+                    break;
+                case 7:
+                    rowClass = 'product-group7';
+                    break;
+                case 8:
+                    rowClass = 'product-group8';
+                    break;
+                case 9:
+                    rowClass = 'product-group9';
+                    break;
+                case 10:
+                    rowClass = 'product-group10';
+                    break;
+                case 11:
+                    rowClass = 'product-group11';
+                    break;
+                case 12:
+                    rowClass = 'product-group12';
+                    break;
+                case 13:
+                    rowClass = 'product-group13';
+                    break;                 
                 case 14:
                     rowClass = 'product-group14';
                     break;

@@ -180,6 +180,9 @@ const filterCentre = () => {
             inputField.type = 'number';
             inputField.placeholder = "Enter amount";
             inputField.maxLength = 2; // Max 2 digits
+            inputField.style.width = '100px';
+            inputField.style.margin = 'auto';
+            inputField.style.display = 'block'; 
             inputCell.appendChild(inputField);
             row.appendChild(inputCell);
 

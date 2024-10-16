@@ -22,16 +22,28 @@
         <img width="500px" src="Logo.svg" alt="Logo" id="logo">
     </div>
 
-    <input type="text" id="centreSearch" placeholder="Search for a Centre..." oninput="filterCentres()">
-    <select id="centreSelect" onchange="selectCentre()">
-        <option value="">Select a Centre</option>
+    <label for="centreSelect">Select Centre:</label>
+    <select id="centreSelect" onchange="filterCentre()">
+        <option value="">--Select Centre--</option>
     </select>
-    <button onclick="clearSearch()">Clear</button>
 
-    <div id="reservesData"></div>
+    <table id="orderTable">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>2024 Reserves</th>
+                <th>2025 Reserves</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be populated here -->
+        </tbody>
+    </table>
 
+    <label for="emailInput">Send to Email:</label>
+    <input type="email" id="emailInput" placeholder="Enter email address" required>
+    <button id="sendEmailButton">Send Data</button>
     <button onclick="window.location.href='home.html'">Back</button>
-
-    <script src="reserves_script.js"></script> <!-- This is where the logic will go -->
+    <script src="reserves_script.js"></script>
 </body>
 </html>

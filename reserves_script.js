@@ -226,3 +226,34 @@ const populateCentreDropdown = () => {
         centreSelect.appendChild(option);
     });
 };
+
+// Function to generate CSV from input values, download it, and send email
+const sendEmail = () => {
+    const tableRows = document.querySelectorAll('#orderTable tbody tr');
+    const selectedCentre = document.getElementById('centreSelect').value; // Get selected centre
+    let csvContent = "Product,2025 Reserves\n"; // CSV header, removed 2024 Reserves
+
+    // Gather the data from the table and create CSV rows
+    tableRows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        const product = cells[0].textContent;
+        const inputAmount = cells[2].querySelector('input').value || "0"; // Get input value
+        csvContent += `${product},${inputAmount}\n`; // Only include 2025 Reserves (Input Amount)
+    });
+
+    // Create a Blob from the CSV data and generate a download link
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${selectedCentre}_reserves_data.csv`; // Name the file based on the selected centre
+    a.click(); // Automatically trigger download
+
+    // Open email client with prefilled subject and body
+    const emailSubject = "Reserves Data";
+    const emailBody = "Please find the reserves data attached. Don't forget to attach the CSV file.";
+    const mailtoLink = `mailto:?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+    // Open mailto link
+    window.location.href = mailtoLink; 
+};

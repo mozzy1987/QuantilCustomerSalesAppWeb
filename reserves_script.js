@@ -112,11 +112,8 @@ const filterCentre = () => {
 
         productHeaders.forEach((product) => {
             const row = document.createElement('tr');
+            const groupNumber = productGroupMap[product] || 0; 
 
-            // Get the group number for the current product
-            const groupNumber = productGroupMap[product] || 0; // Default to group 0 if not found
-
-            // Apply the correct color class based on the group number
             let rowClass;
             switch (groupNumber) {
                 case 1:
@@ -163,6 +160,7 @@ const filterCentre = () => {
                     break;
                 default:
                     rowClass = ''; // No class for undefined groups
+
             }
             row.classList.add(rowClass);
 
@@ -179,14 +177,13 @@ const filterCentre = () => {
             const inputField = document.createElement('input');
             inputField.type = 'number';
             inputField.placeholder = "Enter amount";
-            inputField.maxLength = 2; // Max 2 digits
+            inputField.maxLength = 2;
             inputField.style.width = '100px';
             inputField.style.margin = 'auto';
-            inputField.style.display = 'block'; 
+            inputField.style.display = 'block';
             inputCell.appendChild(inputField);
             row.appendChild(inputCell);
 
-            // Create buttons for "Full" and "Half"
             const buttonCell = document.createElement('td');
             const fullButton = document.createElement('button');
             fullButton.textContent = 'Full';
@@ -204,7 +201,7 @@ const filterCentre = () => {
     } else {
         const row = document.createElement('tr');
         const noDataCell = document.createElement('td');
-        noDataCell.colSpan = 4; // Updated colspan to match new columns
+        noDataCell.colSpan = 4;
         noDataCell.textContent = "No data available for the selected centre.";
         row.appendChild(noDataCell);
         tableBody.appendChild(row);
@@ -229,3 +226,35 @@ const populateCentreDropdown = () => {
         centreSelect.appendChild(option);
     });
 };
+
+// Submit data to Netlify function
+async function submitData(event) {
+    event.preventDefault();  // Prevent the form from refreshing the page
+
+    const formData = [];
+    const centre = document.getElementById('centreSelect').value;
+
+    // Get all table rows
+    const rows = document.querySelectorAll("#orderTable tbody tr");
+
+    rows.forEach(row => {
+        const product = row.querySelector("td:nth-child(1)").textContent;
+        const reserves2024 = row.querySelector("td:nth-child(2)").textContent;
+        const reservesInput = row.querySelector("td:nth-child(3) input").value || '0';
+
+        formData.push([product, reserves2024, reservesInput]);
+    });
+
+    // Send data to Netlify function
+    const response = await fetch('/.netlify/functions/submit-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ centre, formData })
+    });
+
+    if (response.ok) {
+        alert("Reserves data saved successfully!");
+    } else {
+        alert("Error saving data.");
+    }
+}

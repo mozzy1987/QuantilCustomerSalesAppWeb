@@ -226,35 +226,3 @@ const populateCentreDropdown = () => {
         centreSelect.appendChild(option);
     });
 };
-
-// Submit data to Netlify function
-async function submitData(event) {
-    event.preventDefault();  // Prevent the form from refreshing the page
-
-    const formData = [];
-    const centre = document.getElementById('centreSelect').value;
-
-    // Get all table rows
-    const rows = document.querySelectorAll("#orderTable tbody tr");
-
-    rows.forEach(row => {
-        const product = row.querySelector("td:nth-child(1)").textContent;
-        const reserves2024 = row.querySelector("td:nth-child(2)").textContent;
-        const reservesInput = row.querySelector("td:nth-child(3) input").value || '0';
-
-        formData.push([product, reserves2024, reservesInput]);
-    });
-
-    // Send data to Netlify function
-    const response = await fetch('/.netlify/functions/submit-form', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ centre, formData })
-    });
-
-    if (response.ok) {
-        alert("Reserves data saved successfully!");
-    } else {
-        alert("Error saving data.");
-    }
-}

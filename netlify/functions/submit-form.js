@@ -8,7 +8,7 @@ const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const tenantId = process.env.TENANT_ID;
 const redirectUri = 'https://localhost';  // Adjust as needed
-const oneDriveFolder = '/path/to/onedrive/folder'; // Path to your OneDrive folder
+const oneDriveFolder = 'https://quantilfarms.sharepoint.com/:f:/s/QuantilShared/Eg6suT3SOllPsUsvXDocfXIBCQBj4p8DpxU_qHz7XHdMmw?e=2VKGTi'; // Path to your OneDrive folder
 
 // Get OAuth2 token for OneDrive
 const getAccessToken = async () => {

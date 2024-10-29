@@ -184,3 +184,8 @@ th {
     text-decoration: none;
     cursor: pointer;
 }
+
+.highlight-row {
+    color: rgb(255, 0, 0); /* Light red background */
+    font-weight: bold;      /* Bold text */
+}

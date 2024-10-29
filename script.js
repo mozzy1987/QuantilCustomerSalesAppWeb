@@ -118,10 +118,14 @@ function showDataForLocation() {
 
     // Populate table with invoice group data
     let tableBody = "";
+    const volumeThreshold = 15; // Set the threshold for highlighting
+
     for (const invoiceGroup in combinedData) {
         const data = combinedData[invoiceGroup];
+        const highlightClass = data.Volume > volumeThreshold ? "highlight-row" : "";
+
         tableBody += `
-            <tr>
+            <tr class="${highlightClass}">
                 <td>${invoiceGroup}</td>
                 <td>£${formatNumber(data.Total.toFixed(2))}</td>
                 <td>${data.Volume}</td>
@@ -131,6 +135,7 @@ function showDataForLocation() {
 
     document.getElementById("customerTableBody").innerHTML = tableBody;
 }
+
 
 // Helper function to format numbers with commas
 function formatNumber(num) {
@@ -204,3 +209,4 @@ window.onload = function() {
     loadCustomersData();
     loadContactsData();
 };
+

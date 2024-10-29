@@ -137,18 +137,23 @@ function formatNumber(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-// Display only contact details in the modal
+// Display only contact details in the modal based on selected customer and location
 function showCustomerDetails() {
     const selectedCustomerName = document.getElementById("customerSelect").value;
+    const selectedLocation = document.getElementById("locationSelect").value;
     const customerDetailsContent = document.getElementById("customerDetailsContent");
 
-    if (!selectedCustomerName) {
-        customerDetailsContent.innerHTML = "<p>Please select a customer to view details.</p>";
+    if (!selectedCustomerName || !selectedLocation) {
+        customerDetailsContent.innerHTML = "<p>Please select a customer and a location to view details.</p>";
         openModal();
         return;
     }
 
-    const selectedContact = contacts.find(contact => contact["Customer Name"] === selectedCustomerName);
+    // Find the relevant contact based on selected customer name and location
+    const selectedContact = contacts.find(contact => 
+        contact["Customer Name"] === selectedCustomerName && 
+        contact["Address Name"] === selectedLocation // Updated line to match Address Name
+    );
 
     if (selectedContact) {
         customerDetailsContent.innerHTML = `
@@ -167,7 +172,7 @@ function showCustomerDetails() {
         `;
         openModal();
     } else {
-        customerDetailsContent.innerHTML = "<p>No contact details found for this customer.</p>";
+        customerDetailsContent.innerHTML = "<p>No contact details found for this customer at the selected location.</p>";
         openModal();
     }
 }

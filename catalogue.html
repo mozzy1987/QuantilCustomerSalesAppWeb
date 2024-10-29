@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive PDF Embed</title>
+  <title>Fullscreen PDF Embed</title>
   <style>
-    /* Make the container responsive */
+    /* Set the container to fill the viewport */
     #pdfRenderer {
-      width: 100vw;      /* Full viewport width */
-      height: 90vh;      /* 90% of the viewport height, can adjust as needed */
+      width: 100vw;  /* Full viewport width */
+      height: 100vh; /* Full viewport height */
     }
 
-    /* Optional: Make the body full height to avoid extra space below */
+    /* Optional: Remove extra space and ensure full height for body */
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;  /* Prevents scrolling if PDF fills the screen */
+      overflow: hidden;  /* Prevents scrollbars */
     }
   </style>
 </head>
@@ -28,10 +28,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.7/pdfobject.min.js"></script>
 
   <script>
-    // Embed the PDF and make it responsive
+    // Embed the PDF, set to "Fit" to ensure fullscreen scaling
     PDFObject.embed("Quantil 2025 Catalogue.pdf", "#pdfRenderer", {
       pdfOpenParams: {
-        view: "FitH"
+        view: "Fit"  // Ensures the PDF scales to fit within the viewport
       }
     });
   </script>

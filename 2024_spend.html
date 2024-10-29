@@ -11,7 +11,14 @@
     <div>
         <img width="500px" src="Logo.svg" alt="Logo" id="logo">
     </div>
-    
+    <!-- Modal for Customer Details -->
+<div id="customerDetailsModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <div id="customerDetailsContent"></div>
+    </div>
+</div>
+
     <div>
         <input type="text" id="customerSearch" placeholder="Search for a customer..." oninput="filterCustomers()">
     </div>
@@ -24,11 +31,13 @@
             <br>
     </div>
     <div>
-        <select id="locationSelect" onchange="selectLocation()">
+        <select id="locationSelect" onchange="showDataForLocation()">
             <option value="">Select a location</option>
         </select>
     </div>
     <button onclick="clearSearch()">Clear</button>
+    <button onclick="showCustomerDetails()">View Customer Details</button>
+    <div id="customerDetails" style="display: none; margin-top: 20px; text-align: left;"></div>
 
     <div id="accountInfo"></div>
     <table>
@@ -41,7 +50,10 @@
         </thead>
         <tbody id="customerTableBody"></tbody>
     </table>
+
+    
     <button onclick="window.location.href='home.html'">Back</button>
+    <script src="contact_script.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

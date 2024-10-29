@@ -1,16 +1,16 @@
-let customers = []; // Declare the customers variable
+let customers = [];
 
-// Function to load CSV data
-function loadCSVData() {
+// Function to load customers CSV data
+function loadCustomersData() {
     Papa.parse("customers.csv", {
         download: true,
         header: true,
         complete: function(results) {
-            customers = results.data; // Assign parsed data to the customers variable
-            console.log("Loaded customers data: ", customers); // Log loaded data
+            customers = results.data;
+            console.log("Loaded customers data: ", customers);
         },
         error: function(error) {
-            console.error("Error loading CSV: ", error);
+            console.error("Error loading customers CSV: ", error);
         }
     });
 }
@@ -22,109 +22,68 @@ function filterCustomers() {
         customer.Customer_Name && customer.Customer_Name.toLowerCase().includes(searchInput)
     );
 
-    // Use a Set to collect unique customer names
-    const uniqueCustomers = {};
-    filteredCustomers.forEach(customer => {
-        if (!uniqueCustomers[customer.Customer_Name]) {
-            uniqueCustomers[customer.Customer_Name] = customer; // Store the customer object for further use
-        }
-    });
-
-    // Update the dropdown with unique customer names
     const customerSelect = document.getElementById("customerSelect");
-    customerSelect.innerHTML = '<option value="">Select a customer</option>'; // Clear previous options
+    customerSelect.innerHTML = '<option value="">Select a customer</option>';
 
-    for (const customerName in uniqueCustomers) {
-        const customer = uniqueCustomers[customerName];
+    const uniqueCustomerNames = [...new Set(filteredCustomers.map(c => c.Customer_Name))];
+    uniqueCustomerNames.forEach(customer => {
         const option = document.createElement("option");
-        option.value = customer.Account_Number; // Using Account Number as the value
-        option.textContent = customer.Customer_Name; // Display Customer Name
+        option.value = customer;
+        option.textContent = customer;
         customerSelect.appendChild(option);
-    }
+    });
 }
 
-// Function to load locations into the location dropdown
-function loadLocations(selectedCustomer) {
-    const locations = {};
+// Populate location dropdown based on selected customer
+function selectCustomer() {
+    const selectedCustomerName = document.getElementById("customerSelect").value;
+    const locationSelect = document.getElementById("locationSelect");
+    locationSelect.innerHTML = '<option value="">Select a location</option>';
 
-    customers.forEach(customer => {
-        if (customer.Account_Number === selectedCustomer) {
-            const location = customer.Location;
-            if (!locations[location]) {
-                locations[location] = true; // Unique locations only
-            }
-        }
+    const filteredLocations = customers
+        .filter(customer => customer.Customer_Name === selectedCustomerName)
+        .map(customer => customer.Location);
+
+    const uniqueLocations = [...new Set(filteredLocations)];
+    uniqueLocations.forEach(location => {
+        const option = document.createElement("option");
+        option.value = location;
+        option.textContent = location;
+        locationSelect.appendChild(option);
     });
 
-    const locationSelect = document.getElementById("locationSelect");
-    locationSelect.innerHTML = '<option value="">Select a location</option>'; // Clear previous options
-
-    for (const location in locations) {
-        const option = document.createElement("option");
-        option.value = location; // Use the location as the value
-        option.textContent = location; // Display the location
-        locationSelect.appendChild(option);
-    }
+    // Clear previously displayed details
+    document.getElementById("accountInfo").innerHTML = "";
+    document.getElementById("customerTableBody").innerHTML = "";
 }
 
-// Function to search for customer details
-function searchCustomer() {
-    const selectedAccountNumber = document.getElementById("customerSelect").value;
-
-    if (!selectedAccountNumber) {
-        document.getElementById("accountInfo").innerHTML = "Please select a customer.";
-        document.getElementById("customerTableBody").innerHTML = ""; // Clear table
-        return;
-    }
-
-    // Load locations based on the selected customer
-    loadLocations(selectedAccountNumber);
-
-    // Display Account Number and Customer Name at the top
-    const accountInfo = customers.find(customer => customer.Account_Number === selectedAccountNumber);
-    document.getElementById("accountInfo").innerHTML = `
-        <p><strong>Account Number:</strong> ${accountInfo.Account_Number}</p>
-        <p><strong>Customer Name:</strong> ${accountInfo.Customer_Name}</p>
-    `;
-}
-
-// Function to show data based on selected location
+// Display customer data based on selected location
 function showDataForLocation() {
-    const selectedAccountNumber = document.getElementById("customerSelect").value;
+    const selectedCustomerName = document.getElementById("customerSelect").value;
     const selectedLocation = document.getElementById("locationSelect").value;
 
-    if (!selectedAccountNumber || !selectedLocation) {
-        document.getElementById("customerTableBody").innerHTML = ""; // Clear table
+    if (!selectedCustomerName || !selectedLocation) {
+        document.getElementById("customerTableBody").innerHTML = "";
         return;
     }
 
     const filteredCustomers = customers.filter(customer => 
-        customer.Account_Number === selectedAccountNumber && customer.Location === selectedLocation
+        customer.Customer_Name === selectedCustomerName && customer.Location === selectedLocation
     );
 
-    if (filteredCustomers.length === 0) {
-        document.getElementById("customerTableBody").innerHTML = "No data found for this location.";
-        return;
-    }
-
-    // Combine data for totals and volume by invoice group
     const combinedData = {};
 
     filteredCustomers.forEach(customer => {
         const invoiceGroup = customer.Invoice_Group;
 
         if (!combinedData[invoiceGroup]) {
-            combinedData[invoiceGroup] = {
-                Total: 0,
-                Volume: 0,
-            };
+            combinedData[invoiceGroup] = { Total: 0, Volume: 0 };
         }
 
-        combinedData[invoiceGroup].Total += parseFloat(customer.Total); // Sum totals
-        combinedData[invoiceGroup].Volume += parseInt(customer.Volume); // Sum volumes
+        combinedData[invoiceGroup].Total += parseFloat(customer.Total);
+        combinedData[invoiceGroup].Volume += parseInt(customer.Volume);
     });
 
-    // Build the table body for the selected customer and location
     let tableBody = "";
     for (const invoiceGroup in combinedData) {
         const data = combinedData[invoiceGroup];
@@ -140,29 +99,117 @@ function showDataForLocation() {
     document.getElementById("customerTableBody").innerHTML = tableBody;
 }
 
-// Clear search function
-function clearSearch() {
-    document.getElementById("customerSearch").value = "";
-    document.getElementById("customerSelect").innerHTML = '<option value="">Select a customer</option>'; // Clear dropdown
-    document.getElementById("locationSelect").innerHTML = '<option value="">Select a location</option>'; // Clear location dropdown
-    document.getElementById("accountInfo").innerHTML = ""; // Clear account info
-    document.getElementById("customerTableBody").innerHTML = ""; // Clear table
-}
+// Show customer and contact details
+function showCustomerDetails() {
+    const selectedCustomerName = document.getElementById("customerSelect").value;
+    const customerDetailsDiv = document.getElementById("customerDetails");
 
-// Function to select a customer from the dropdown
-function selectCustomer() {
-    const selectedAccountNumber = document.getElementById("customerSelect").value;
+    if (!selectedCustomerName) {
+        customerDetailsDiv.innerHTML = "<p>Please select a customer to view details.</p>";
+        customerDetailsDiv.style.display = "block";
+        return;
+    }
 
-    if (selectedAccountNumber) {
-        // Call searchCustomer with the selected account number
-        searchCustomer();
+    const selectedCustomer = customers.find(customer => customer.Customer_Name === selectedCustomerName);
+    const selectedContact = contacts.find(contact => 
+        contact["Customer Name"] === selectedCustomerName
+    );
+
+    if (selectedCustomer && selectedContact) {
+        customerDetailsDiv.innerHTML = `
+            <h3>Customer Details</h3>
+            <p><strong>Customer Name:</strong> ${selectedCustomer.Customer_Name}</p>
+            <p><strong>Location:</strong> ${selectedCustomer.Location}</p>
+            <p><strong>Invoice Group:</strong> ${selectedCustomer.Invoice_Group}</p>
+            <p><strong>Total Spend:</strong> £${parseFloat(selectedCustomer.Total).toFixed(2)}</p>
+            <p><strong>Volume:</strong> ${selectedCustomer.Volume}</p>
+
+            <h3>Contact Details</h3>
+            <p><strong>Contact Name:</strong> ${selectedContact["Contact Name"]}</p>
+            <p><strong>Address Line 1:</strong> ${selectedContact["Address Line 1"]}</p>
+            <p><strong>Address Line 2:</strong> ${selectedContact["Address Line 2"] || ''}</p>
+            <p><strong>Town:</strong> ${selectedContact["Address Town"]}</p>
+            <p><strong>County:</strong> ${selectedContact["Address County"]}</p>
+            <p><strong>Postcode:</strong> ${selectedContact["Address Postcode"]}</p>
+            <p><strong>Telephone:</strong> ${selectedContact["Telephone"]}</p>
+            <p><strong>Mobile Number:</strong> ${selectedContact["Mobile Number"]}</p>
+        `;
+        customerDetailsDiv.style.display = "block";
+    } else {
+        customerDetailsDiv.innerHTML = "<p>No contact details found for this customer.</p>";
+        customerDetailsDiv.style.display = "block";
     }
 }
 
-// Function to select a location from the dropdown
-function selectLocation() {
-    showDataForLocation();
+// Clear search function
+function clearSearch() {
+    document.getElementById("customerSearch").value = "";
+    document.getElementById("customerSelect").innerHTML = '<option value="">Select a customer</option>';
+    document.getElementById("locationSelect").innerHTML = '<option value="">Select a location</option>';
+    document.getElementById("accountInfo").innerHTML = "";
+    document.getElementById("customerTableBody").innerHTML = "";
+    document.getElementById("customerDetails").style.display = "none";
 }
 
-// Load CSV data when the page loads
-window.onload = loadCSVData;
+// Load CSV data for customers when the page loads
+window.onload = loadCustomersData;
+
+
+// Display customer data based on selected location
+function showDataForLocation() {
+    const selectedCustomerName = document.getElementById("customerSelect").value;
+    const selectedLocation = document.getElementById("locationSelect").value;
+
+    if (!selectedCustomerName || !selectedLocation) {
+        document.getElementById("customerTableBody").innerHTML = "";
+        document.getElementById("accountInfo").innerHTML = "";
+        return;
+    }
+
+    // Filter customers for the selected customer and location
+    const filteredCustomers = customers.filter(customer => 
+        customer.Customer_Name === selectedCustomerName && customer.Location === selectedLocation
+    );
+
+    const combinedData = {};
+    
+    // Calculate total spend for the selected customer and location
+    const totalSpend = filteredCustomers.reduce((sum, customer) => {
+        const invoiceGroup = customer.Invoice_Group;
+        
+        if (!combinedData[invoiceGroup]) {
+            combinedData[invoiceGroup] = { Total: 0, Volume: 0 };
+        }
+
+        combinedData[invoiceGroup].Total += parseFloat(customer.Total);
+        combinedData[invoiceGroup].Volume += parseInt(customer.Volume);
+        
+        // Sum up total spend
+        return sum + parseFloat(customer.Total);
+    }, 0);
+
+    // Display total spend for the selected customer and location
+    const accountInfoDiv = document.getElementById("accountInfo");
+    accountInfoDiv.innerHTML = `<h2>Total Spend for ${selectedCustomerName} at ${selectedLocation}: £${formatNumber(totalSpend.toFixed(2))}</h2>`;
+
+    let tableBody = "";
+    for (const invoiceGroup in combinedData) {
+        const data = combinedData[invoiceGroup];
+        tableBody += `
+            <tr>
+                <td>${invoiceGroup}</td>
+                <td>£${formatNumber(data.Total.toFixed(2))}</td>
+                <td>${data.Volume}</td>
+            </tr>
+        `;
+    }
+
+    document.getElementById("customerTableBody").innerHTML = tableBody;
+}
+
+
+// Helper function to format numbers with commas
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+

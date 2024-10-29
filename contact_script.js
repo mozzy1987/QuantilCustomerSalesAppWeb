@@ -132,3 +132,4 @@ function clearSearch() {
 
 // Load CSV data when the page loads
 window.onload = loadCSVData;
+

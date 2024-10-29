@@ -11,13 +11,14 @@
     <div>
         <img width="500px" src="Logo.svg" alt="Logo" id="logo">
     </div>
+
     <!-- Modal for Customer Details -->
-<div id="customerDetailsModal" class="modal">
-    <div class="modal-content">
-        <span class="close-button" onclick="closeModal()">&times;</span>
-        <div id="customerDetailsContent"></div>
+    <div id="customerDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <div id="customerDetailsContent"></div>
+        </div>
     </div>
-</div>
 
     <div>
         <input type="text" id="customerSearch" placeholder="Search for a customer..." oninput="filterCustomers()">
@@ -28,7 +29,7 @@
         </select>  
     </div>
     <div>
-            <br>
+        <br>
     </div>
     <div>
         <select id="locationSelect" onchange="showDataForLocation()">
@@ -37,9 +38,9 @@
     </div>
     <button onclick="clearSearch()">Clear</button>
     <button onclick="showCustomerDetails()">View Customer Details</button>
-    <div id="customerDetails" style="display: none; margin-top: 20px; text-align: left;"></div>
 
-    <div id="accountInfo"></div>
+    <div id="accountInfo" style="margin-top: 20px;"></div> <!-- Updated section for account info -->
+    
     <table>
         <thead>
             <tr>
@@ -51,7 +52,6 @@
         <tbody id="customerTableBody"></tbody>
     </table>
 
-    
     <button onclick="window.location.href='home.html'">Back</button>
     <script src="contact_script.js"></script>
     <script src="script.js"></script>

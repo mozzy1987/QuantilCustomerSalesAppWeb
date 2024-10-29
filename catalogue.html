@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive PDF Embed</title>
+  <style>
+    /* Make the container responsive */
+    #pdfRenderer {
+      width: 100vw;      /* Full viewport width */
+      height: 90vh;      /* 90% of the viewport height, can adjust as needed */
+    }
+
+    /* Optional: Make the body full height to avoid extra space below */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;  /* Prevents scrolling if PDF fills the screen */
+    }
+  </style>
 </head>
 <body>
-    <object data="mypdf.pdf" type="application/pdf" frameborder="0" width="100%" height="600px" style="padding: 20px;">
-        <embed src="https://drive.google.com/file/d/1cYEvS0augKaCNv9USQoM-V5nqQHfAaeJ/preview?usp=sharing" width="100%" height="600px"/> 
-    </object>
-    
+
+  <div id="pdfRenderer"></div>
+
+  <!-- Load the PDFObject library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.7/pdfobject.min.js"></script>
+
+  <script>
+    // Embed the PDF and make it responsive
+    PDFObject.embed("Quantil 2025 Catalogue.pdf", "#pdfRenderer", {
+      pdfOpenParams: {
+        view: "FitH"
+      }
+    });
+  </script>
+
 </body>
 </html>

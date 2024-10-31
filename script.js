@@ -174,6 +174,8 @@ function showCustomerDetails() {
             <p><strong>Contact Job Title:</strong> ${selectedContact["Contact Job Title"]}</p>
             <p><strong>Contact Phone Number:</strong> ${selectedContact["Contact Phone Number"]}</p>
             <p><strong>Contact Email Address:</strong> ${selectedContact["Contact Email Address"]}</p>
+            <p><strong>Direction:</strong> <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selectedContact["Address Postcode"])}" target="_blank">
+    Click Here</a></p>
         `;
         openModal();
     } else {

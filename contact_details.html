@@ -23,8 +23,10 @@
         <select id="addressSelect" onchange="selectAddress()">
             <option value="">Select an address</option>
         </select>
-        <button onclick="clearSearch()">Clear</button>
+            
     </div>
+    <button onclick="clearSearch()">Clear</button>
+    <button onclick="window.location.href='home.html'">Back</button>
 
     <div id="contactInfo" style="text-align: left; margin-top: 20px;"></div>
     <!-- Contact Information Display -->
@@ -32,8 +34,9 @@
 
     <!-- Update Details Section -->
     <label for="updateDetails">Update Details:</label>
+    <br>
     <textarea id="updateDetails" rows="4" cols="50" placeholder="Enter update details here..."></textarea>
-
+    <br>
     <!-- Update Button -->
     <button onclick="sendUpdateEmail()">Send Update</button>
     <button onclick="window.location.href='home.html'">Back</button>

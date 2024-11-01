@@ -92,57 +92,67 @@ th {
 /* Add some color coding */
 .product-group1 {
     background-color: #f2f2f2; 
+    font-weight: bold;
 }
 
 .product-group2 {
-    background-color: #eb9c99bd; 
+    background-color: #ffffff; 
+    font-weight: bold;
 }
 
 .product-group3 {
-    background-color: #ffcccc; 
+    background-color: #f2f2f2; 
+    font-weight: bold;
 }
 .product-group4 {
-    background-color: #dcfff2; 
+    background-color: #ffffff; 
+    font-weight: bold;
 }
 
 .product-group5 {
-    background-color: #e6ffe6; 
+    background-color: #f2f2f2; 
+    font-weight: bold;
 }
 
 .product-group6 {
-    background-color: #cce2ff; 
+    background-color: #ffffff; 
+    font-weight: bold; 
 }
 .product-group7 {
-    background-color: #fd4e4ea8;
-    color: white; 
+    background-color: #f2f2f2; 
+    font-weight: bold;
 }
 
 .product-group8 {
-    background-color: #ff0000a8;
-    color: white;  
+    background-color: #ffffff; 
+    font-weight: bold;
 }
 
 .product-group9 {
-    background-color: #ffdb658f; 
+    background-color: #f2f2f2; 
+    font-weight: bold; 
 }
 .product-group10 {
-    background-color: #ffab4c; 
+    background-color: #ffffff; 
+    font-weight: bold; 
 }
 
 .product-group11 {
-    background-color: #ff0000a8;
-    color: white; 
+    background-color: #f2f2f2; 
+    font-weight: bold; 
 }
-
 .product-group12 {
-    background-color: #ffdb658f; 
+    background-color: #ffffff; 
+    font-weight: bold;  
 }
 .product-group13 {
     background-color: #f2f2f2; 
+    font-weight: bold; 
 }
 
 .product-group14 {
-    background-color: #afb5ff; 
+    background-color: #ffffff; 
+    font-weight: bold; 
 }
 
 
